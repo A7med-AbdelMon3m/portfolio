@@ -1,0 +1,17 @@
+/** localStorage can throw (private mode, blocked cookies), so every access goes through here. */
+export const storage = {
+  get(key: string): string | null {
+    try {
+      return window.localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  },
+  set(key: string, value: string): void {
+    try {
+      window.localStorage.setItem(key, value);
+    } catch {
+      /* storage unavailable: the preference simply won't persist */
+    }
+  },
+};

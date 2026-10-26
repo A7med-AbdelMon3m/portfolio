@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light: drafting vellum with ink-blue linework */
+    --sheet: 233 236 234;
+    --sheet-raised: 244 246 245;
+    --ink: 18 27 34;
+    --ink-soft: 71 84 93;
+    --line: 197 205 202;
+    --blue: 31 78 121;
+    --amber: 242 177 0;
+    --earth: 46 125 79;
+    color-scheme: light;
+  }
+
+  .dark {
+    --sheet: 15 21 25;
+    --sheet-raised: 21 29 35;
+    --ink: 230 236 234;
+    --ink-soft: 154 168 176;
+    --line: 38 50 58;
+    --blue: 127 178 224;
+    --amber: 242 177 0;
+    --earth: 94 190 138;
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-sheet font-sans text-ink antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  /* Arabic needs more line height and no letter-spacing */
+  :lang(ar) body {
+    line-height: 1.85;
+  }
+  :lang(ar) h1,
+  :lang(ar) h2,
+  :lang(ar) h3 {
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--blue));
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: rgb(var(--amber) / 0.45);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-page px-5 md:px-8;
+  }
+
+  .btn {
+    @apply inline-flex min-h-[46px] items-center justify-center gap-2 border px-5 py-2 text-[0.95rem] font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60;
+    border-radius: 3px;
+  }
+  .btn-solid {
+    @apply border-ink bg-ink text-sheet hover:border-blue hover:bg-blue;
+  }
+  .btn-line {
+    @apply border-ink/50 text-ink hover:border-ink;
+  }
+
+  .icon-btn {
+    @apply inline-flex h-11 items-center justify-center border border-transparent text-ink transition-colors hover:border-line;
+    border-radius: 3px;
+  }
+
+  .tag {
+    @apply inline-flex items-center border border-line px-2 py-0.5 text-[0.8125rem] leading-5 text-ink-soft;
+    border-radius: 2px;
+  }
+
+  .chip {
+    @apply inline-flex min-h-[40px] items-center gap-2 border border-line px-3 text-[0.95rem] transition-colors hover:border-ink aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-sheet;
+    border-radius: 3px;
+  }
+  .chip[aria-pressed="true"] span {
+    color: inherit;
+    opacity: 0.8;
+  }
+
+  .field {
+    @apply w-full border border-ink/40 bg-sheet-raised px-3 py-2.5 text-ink transition-colors placeholder:text-ink-soft focus:border-blue aria-[invalid=true]:border-[#B42318];
+    border-radius: 3px;
+  }
+
+  /* Drafting grid behind the hero diagram */
+  .sheet-grid {
+    background-image:
+      linear-gradient(rgb(var(--line) / 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--line) / 0.5) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+}
+
+/* Single-line diagram: one sweep on load, then a short trace to the feeder in focus */
+@keyframes sld-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes sld-fade {
+  to {
+    opacity: 0;
+  }
+}
+.sld-sweep {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    sld-draw 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.35s forwards,
+    sld-fade 0.5s ease-out 1.9s forwards;
+}
+.sld-trace {
+  stroke-dasharray: 1;
+  animation: sld-draw 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sld-sweep {
+    display: none;
+  }
+  .sld-trace {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Arabic glyphs are taller than Latin ones, so the hero headline is set a little smaller */
+:lang(ar) .hero-title {
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  line-height: 1.35;
+}
