@@ -4,27 +4,28 @@
 
 @layer base {
   :root {
-    /* Light: drafting vellum with ink-blue linework */
-    --sheet: 233 236 234;
-    --sheet-raised: 244 246 245;
-    --ink: 18 27 34;
-    --ink-soft: 71 84 93;
-    --line: 197 205 202;
-    --blue: 31 78 121;
-    --amber: 242 177 0;
-    --earth: 46 125 79;
+    /* Lights on: warm vellum, ink, conductor amber */
+    --sheet: 241 243 239;
+    --sheet-raised: 250 251 248;
+    --ink: 14 22 30;
+    --ink-soft: 66 80 90;
+    --line: 207 213 208;
+    --blue: 20 84 160;
+    --amber: 255 180 0;
+    --earth: 30 120 78;
     color-scheme: light;
   }
 
   .dark {
-    --sheet: 15 21 25;
-    --sheet-raised: 21 29 35;
-    --ink: 230 236 234;
-    --ink-soft: 154 168 176;
-    --line: 38 50 58;
-    --blue: 127 178 224;
-    --amber: 242 177 0;
-    --earth: 94 190 138;
+    /* Lights off: night board with a live amber conductor */
+    --sheet: 10 15 20;
+    --sheet-raised: 17 25 34;
+    --ink: 234 240 242;
+    --ink-soft: 147 164 176;
+    --line: 32 44 56;
+    --blue: 90 169 255;
+    --amber: 255 180 0;
+    --earth: 70 194 138;
     color-scheme: dark;
   }
 
@@ -34,36 +35,38 @@
 
   body {
     @apply bg-sheet font-sans text-ink antialiased;
-    font-size: 1.0625rem;
-    line-height: 1.65;
+    font-size: 1rem;
+    line-height: 1.7;
+    overflow-x: hidden;
   }
 
   h1,
   h2,
   h3 {
     @apply font-display;
-    line-height: 1.15;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
-  /* Arabic needs more line height and no letter-spacing */
   :lang(ar) body {
-    line-height: 1.85;
+    line-height: 1.9;
   }
   :lang(ar) h1,
   :lang(ar) h2,
   :lang(ar) h3 {
-    line-height: 1.4;
+    line-height: 1.35;
     letter-spacing: 0;
   }
 
   :focus-visible {
-    outline: 2px solid rgb(var(--blue));
+    outline: 2px solid rgb(var(--amber));
     outline-offset: 3px;
   }
 
   ::selection {
-    background: rgb(var(--amber) / 0.45);
+    background: rgb(var(--amber) / 0.5);
+    color: #0a0f14;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -78,19 +81,29 @@
     @apply mx-auto w-full max-w-page px-5 md:px-8;
   }
 
+  /* ---------- Buttons and controls ---------- */
   .btn {
-    @apply inline-flex min-h-[46px] items-center justify-center gap-2 border px-5 py-2 text-[0.95rem] font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2 border px-6 py-2 text-[0.95rem] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60;
     border-radius: 3px;
   }
   .btn-solid {
-    @apply border-ink bg-ink text-sheet hover:border-blue hover:bg-blue;
+    @apply border-amber bg-amber text-[#0a0f14] hover:border-ink hover:bg-ink hover:text-sheet;
   }
   .btn-line {
-    @apply border-ink/50 text-ink hover:border-ink;
+    @apply border-ink/40 text-ink hover:border-amber hover:text-amber;
+  }
+  .btn[data-magnetic] {
+    translate: var(--mx, 0px) var(--my, 0px);
+    transition: translate 0.25s ease-out, background-color 0.2s, color 0.2s, border-color 0.2s;
   }
 
   .icon-btn {
-    @apply inline-flex h-11 items-center justify-center border border-transparent text-ink transition-colors hover:border-line;
+    @apply inline-flex h-11 items-center justify-center border border-transparent text-ink transition-colors hover:border-line hover:text-amber;
+    border-radius: 3px;
+  }
+
+  .kbd {
+    @apply border border-line px-1.5 text-xs text-ink-soft;
     border-radius: 3px;
   }
 
@@ -100,29 +113,371 @@
   }
 
   .chip {
-    @apply inline-flex min-h-[40px] items-center gap-2 border border-line px-3 text-[0.95rem] transition-colors hover:border-ink aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-sheet;
+    @apply inline-flex min-h-[42px] items-center gap-2 border border-line px-3.5 text-[0.95rem] transition-colors hover:border-amber aria-pressed:border-amber aria-pressed:bg-amber aria-pressed:text-[#0a0f14];
     border-radius: 3px;
   }
   .chip[aria-pressed="true"] span {
     color: inherit;
-    opacity: 0.8;
+    opacity: 0.75;
   }
 
   .field {
-    @apply w-full border border-ink/40 bg-sheet-raised px-3 py-2.5 text-ink transition-colors placeholder:text-ink-soft focus:border-blue aria-[invalid=true]:border-[#B42318];
+    @apply w-full border border-ink/30 bg-sheet-raised px-3.5 py-3 text-ink transition-colors placeholder:text-ink-soft focus:border-amber aria-[invalid=true]:border-[#e5484d];
     border-radius: 3px;
   }
 
-  /* Drafting grid behind the hero diagram */
+  /* Lights switch */
+  .lights {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 3.4rem;
+    height: 2rem;
+    border: 1px solid rgb(var(--ink) / 0.35);
+    border-radius: 999px;
+    background: rgb(var(--sheet-raised));
+    transition: border-color 0.3s;
+  }
+  .lights:hover {
+    border-color: rgb(var(--amber));
+  }
+  .lights-knob {
+    position: absolute;
+    inset-block: 2px;
+    inset-inline-start: 2px;
+    display: grid;
+    width: 1.55rem;
+    place-items: center;
+    border-radius: 999px;
+    background: rgb(var(--ink));
+    color: rgb(var(--sheet));
+    transition: inset-inline-start 0.35s cubic-bezier(0.3, 1.4, 0.5, 1), background-color 0.3s, color 0.3s;
+  }
+  .lights[aria-checked="true"] .lights-knob {
+    inset-inline-start: calc(100% - 1.55rem - 2px);
+    background: rgb(var(--amber));
+    color: #0a0f14;
+  }
+
+  /* ---------- Drafting motifs ---------- */
   .sheet-grid {
     background-image:
-      linear-gradient(rgb(var(--line) / 0.5) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(var(--line) / 0.5) 1px, transparent 1px);
+      linear-gradient(rgb(var(--line) / 0.7) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--line) / 0.7) 1px, transparent 1px);
     background-size: 24px 24px;
+  }
+
+  /* Registration marks in two corners of a framed photo */
+  .frame {
+    position: relative;
+  }
+  .frame::before,
+  .frame::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    border: 3px solid rgb(var(--amber));
+    pointer-events: none;
+  }
+  .frame::before {
+    top: -10px;
+    inset-inline-start: -10px;
+    border-inline-end: 0;
+    border-block-end: 0;
+  }
+  .frame::after {
+    bottom: -10px;
+    inset-inline-end: -10px;
+    border-inline-start: 0;
+    border-block-start: 0;
+  }
+
+  .stat-number {
+    @apply font-display font-extrabold;
+    font-size: clamp(3.25rem, 8.5vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Energy rail: the amber conductor that fills as you scroll ---------- */
+  .rail {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: clamp(6px, calc(50vw - 36rem - 26px), 400px);
+    z-index: 30;
+    width: 3px;
+    background: rgb(var(--line));
+    pointer-events: none;
+  }
+  .rail-fill {
+    position: absolute;
+    inset: 0;
+    background: rgb(var(--amber));
+    transform-origin: top;
+    transform: scaleY(var(--progress, 0));
+  }
+  .rail-head {
+    position: absolute;
+    inset-inline-start: -4px;
+    top: calc(var(--progress, 0) * (100% - 11px));
+    width: 11px;
+    height: 11px;
+    background: rgb(var(--amber));
+    box-shadow: 0 0 0 4px rgb(var(--amber) / 0.2);
+  }
+
+  /* Section titles get a marker that lights when the section is reached */
+  .lit-title::before {
+    content: "";
+    display: inline-block;
+    width: 0.42em;
+    height: 0.42em;
+    margin-inline-end: 0.45em;
+    background: rgb(var(--line));
+    transition: background-color 0.5s, transform 0.5s;
+  }
+  .lit-title.is-in::before {
+    background: rgb(var(--amber));
+    transform: rotate(45deg);
+  }
+
+  /* ---------- Marquee ---------- */
+  .marquee {
+    overflow: hidden;
+    border-block: 1px solid rgb(var(--line));
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 42s linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  .marquee-list {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 1.15rem 1.25rem;
+  }
+
+  /* ---------- Hero ---------- */
+  .word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-block: 0.08em;
+    margin-block: -0.08em;
+  }
+  .word > span {
+    display: inline-block;
+    animation: word-up 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+    animation-delay: calc(var(--i, 0) * 80ms + 120ms);
+  }
+  .trace {
+    fill: none;
+    stroke: rgb(var(--line));
+    stroke-width: 1.5;
+  }
+  .pulse {
+    fill: none;
+    stroke: rgb(var(--amber));
+    stroke-width: 2.5;
+    stroke-dasharray: 70 1600;
+    stroke-dashoffset: 1670;
+    animation: pulse 8s linear infinite;
+    animation-delay: var(--d, 0s);
+  }
+  .tilt {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 0.25s ease-out;
+  }
+  .live-dot {
+    position: relative;
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    background: #0a0f14;
+  }
+  .live-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid #0a0f14;
+    animation: ping 1.8s ease-out infinite;
+  }
+
+  /* ---------- Rows and lists ---------- */
+  .row-link {
+    position: relative;
+  }
+  .row-link::before {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 3px;
+    background: rgb(var(--amber));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.1, 1);
+  }
+  .row-link:hover::before,
+  .row-link:focus-visible::before {
+    transform: scaleY(1);
+  }
+  .row-link > * {
+    transition: translate 0.35s cubic-bezier(0.2, 0.7, 0.1, 1);
+  }
+  .row-link:hover > *,
+  .row-link:focus-visible > * {
+    translate: 14px 0;
+  }
+  [dir="rtl"] .row-link:hover > *,
+  [dir="rtl"] .row-link:focus-visible > * {
+    translate: -14px 0;
+  }
+
+  /* ---------- Timeline that draws itself ---------- */
+  .timeline {
+    position: relative;
+  }
+  .timeline::before,
+  .timeline::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 5px;
+    width: 3px;
+  }
+  .timeline::before {
+    background: rgb(var(--line));
+  }
+  .timeline::after {
+    background: rgb(var(--amber));
+    transform-origin: top;
+    transform: scaleY(var(--fill, 0));
+  }
+  .node {
+    background: rgb(var(--line));
+    transition: background-color 0.5s, transform 0.5s;
+  }
+  .node.is-in {
+    background: rgb(var(--amber));
+    transform: rotate(45deg);
+  }
+
+  /* ---------- Footer wordmark ---------- */
+  .wordmark {
+    @apply font-display font-extrabold;
+    font-size: clamp(2.75rem, 10.5vw, 9.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgb(var(--ink) / 0.3);
+    transition: color 0.4s, -webkit-text-stroke-color 0.4s;
+  }
+  .wordmark:hover {
+    color: rgb(var(--amber));
+    -webkit-text-stroke-color: rgb(var(--amber));
+  }
+  :lang(ar) .wordmark {
+    color: rgb(var(--ink) / 0.14);
+    -webkit-text-stroke: 0;
+    line-height: 1.3;
+  }
+
+  /* ---------- Dialogs ---------- */
+  .dialog-in[data-state="open"] {
+    animation: dialog-in 0.3s cubic-bezier(0.2, 0.7, 0.1, 1);
+  }
+  .overlay-in[data-state="open"] {
+    animation: fade-in 0.25s ease-out;
+  }
+  .page-enter {
+    animation: page-in 0.5s cubic-bezier(0.2, 0.7, 0.1, 1) both;
   }
 }
 
-/* Single-line diagram: one sweep on load, then a short trace to the feeder in focus */
+/* ---------- Scroll-triggered reveal (hidden state only when JS and motion are available) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    translate: 0 30px;
+    transition:
+      opacity 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) var(--d, 0ms),
+      translate 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) var(--d, 0ms);
+  }
+  .js [data-reveal].is-in {
+    opacity: 1;
+    translate: 0 0;
+  }
+  [data-parallax] {
+    translate: 0 var(--py, 0px);
+    will-change: translate;
+  }
+  .list-in > li {
+    animation: row-in 0.6s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+    animation-delay: calc(var(--i, 0) * 70ms);
+  }
+}
+
+@keyframes word-up {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes pulse {
+  to {
+    stroke-dashoffset: -70;
+  }
+}
+@keyframes ping {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+@keyframes row-in {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    scale: 0.96;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
 @keyframes sld-draw {
   from {
     stroke-dashoffset: 1;
@@ -140,26 +495,50 @@
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   animation:
-    sld-draw 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.35s forwards,
-    sld-fade 0.5s ease-out 1.9s forwards;
+    sld-draw 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards,
+    sld-fade 0.5s ease-out 2.1s forwards;
 }
 .sld-trace {
   stroke-dasharray: 1;
-  animation: sld-draw 0.35s ease-out both;
+  animation: sld-draw 0.4s ease-out both;
+}
+
+/* Circular "lights" reveal when the theme changes (View Transitions API) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* Arabic hero headline is set a little smaller: the glyphs are taller */
+:lang(ar) .hero-title {
+  font-size: clamp(2.2rem, 5.6vw, 4.6rem);
+  line-height: 1.3;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sld-sweep {
+  .sld-sweep,
+  .pulse,
+  .live-dot::after {
     display: none;
   }
-  .sld-trace {
+  .sld-trace,
+  .word > span {
     animation: none;
-    stroke-dashoffset: 0;
   }
-}
-
-/* Arabic glyphs are taller than Latin ones, so the hero headline is set a little smaller */
-:lang(ar) .hero-title {
-  font-size: clamp(2rem, 4.4vw, 3.4rem);
-  line-height: 1.35;
+  .marquee-track {
+    animation: none;
+  }
+  .marquee {
+    overflow-x: auto;
+  }
+  .tilt {
+    transform: none;
+  }
 }

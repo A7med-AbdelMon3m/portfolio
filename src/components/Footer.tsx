@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { Download } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import { profile } from "@/content/profile";
 import { useI18n } from "@/i18n";
-import { navItems } from "./Header";
+import { navItems } from "./navItems";
 
 function Cell({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -20,22 +20,26 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 border-t border-line">
-      <div className="wrap py-12">
-        <div className="grid gap-px border border-ink/60 bg-ink/30 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="mt-24 overflow-hidden border-t border-line pt-16">
+      <div className="wrap">
+        <p className="wordmark select-none" aria-hidden="true">
+          {l(profile.name)}
+        </p>
+
+        <div className="mt-12 grid gap-px border border-ink/50 bg-ink/25 sm:grid-cols-2 lg:grid-cols-4">
           <Cell label={t("footer.engineer")}>
-            <p className="font-display text-xl font-semibold">{l(profile.fullName)}</p>
+            <p className="font-display text-xl font-bold">{l(profile.fullName)}</p>
             <p className="text-ink-soft">{t("footer.discipline.value")}</p>
             <p className="text-ink-soft">{t("contact.location.value")}</p>
           </Cell>
           <Cell label={t("footer.reach")}>
             <p>
-              <a href={`mailto:${profile.email}`} className="break-all hover:text-blue" dir="ltr">
+              <a href={`mailto:${profile.email}`} className="break-all hover:text-amber" dir="ltr">
                 {profile.email}
               </a>
             </p>
             <p>
-              <a href={`tel:${profile.phone}`} className="hover:text-blue" dir="ltr">
+              <a href={`tel:${profile.phone}`} className="hover:text-amber" dir="ltr">
                 {profile.phoneDisplay}
               </a>
             </p>
@@ -43,7 +47,7 @@ export function Footer() {
           <Cell label={t("contact.profiles")}>
             {Object.values(profile.links).map((link) => (
               <p key={link.url}>
-                <a href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-blue">
+                <a href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-amber">
                   {link.label}
                 </a>
               </p>
@@ -53,7 +57,7 @@ export function Footer() {
             <ul className="grid grid-cols-2 gap-x-4 gap-y-1">
               {navItems.map((item) => (
                 <li key={item.to}>
-                  <Link to={item.to} className="hover:text-blue">
+                  <Link to={item.to} className="hover:text-amber">
                     {t(item.key)}
                   </Link>
                 </li>
@@ -62,12 +66,16 @@ export function Footer() {
           </Cell>
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-sm text-ink-soft">
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 pb-8 text-sm text-ink-soft">
           <p>{t("footer.rights", { year })}</p>
-          <a href={profile.cv} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-blue">
-            <Download size={16} aria-hidden="true" />
-            {t("cv")}
-          </a>
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="inline-flex items-center gap-2 hover:text-amber"
+          >
+            <ArrowUp size={16} aria-hidden="true" />
+            {t("footer.top")}
+          </button>
         </div>
       </div>
     </footer>

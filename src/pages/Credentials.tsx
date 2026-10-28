@@ -4,6 +4,7 @@ import { Seo } from "@/components/Seo";
 import { education } from "@/content/credentials";
 import { skillGroups, software } from "@/content/skills";
 import { useI18n } from "@/i18n";
+import { reveal } from "@/lib/fx";
 
 export default function Credentials() {
   const { t, l } = useI18n();
@@ -13,8 +14,8 @@ export default function Credentials() {
       <Seo title={t("seo.credentials.title")} description={t("seo.credentials.desc")} />
       <PageHead title={t("credentials.title")} intro={t("credentials.intro")} />
 
-      <section className="py-10">
-        <h2 className="text-2xl font-bold md:text-3xl">{t("credentials.education")}</h2>
+      <section className="py-12">
+        <h2 data-lit className="lit-title text-3xl font-extrabold md:text-4xl">{t("credentials.education")}</h2>
         <div className="mt-5 grid gap-x-6 gap-y-1 border-y border-line py-5 md:grid-cols-[9.5rem_1fr]">
           <span className="text-sm tabular-nums text-ink-soft md:pt-1.5">{education.year}</span>
           <span>
@@ -24,18 +25,18 @@ export default function Credentials() {
         </div>
       </section>
 
-      <section className="border-t border-line py-10">
-        <h2 className="text-2xl font-bold md:text-3xl">{t("credentials.certs")}</h2>
+      <section className="border-t border-line py-12">
+        <h2 data-lit className="lit-title text-3xl font-extrabold md:text-4xl">{t("credentials.certs")}</h2>
         <p className="mb-8 mt-2 text-ink-soft">{t("credentials.certs.hint")}</p>
         <CertificateGallery />
       </section>
 
-      <section className="border-t border-line py-10">
-        <h2 className="text-2xl font-bold md:text-3xl">{t("credentials.skills")}</h2>
+      <section className="border-t border-line py-12">
+        <h2 data-lit className="lit-title text-3xl font-extrabold md:text-4xl">{t("credentials.skills")}</h2>
         <div className="mt-6 grid gap-10 md:grid-cols-3">
-          {skillGroups.map((group) => (
-            <div key={group.id}>
-              <h3 className="border-b border-ink/60 pb-2 text-xl font-semibold">{l(group.title)}</h3>
+          {skillGroups.map((group, i) => (
+            <div key={group.id} {...reveal(i * 100)}>
+              <h3 className="border-b border-amber pb-2 text-xl font-bold">{l(group.title)}</h3>
               <ul className="mt-3 space-y-2.5">
                 {group.items.map((item) => (
                   <li key={item.en} className="text-ink-soft">

@@ -20,6 +20,19 @@ const darAlKahrabaa: Localized = {
 
 export const experience: Role[] = [
   {
+    id: "technical-office",
+    title: { en: "Technical office engineer", ar: "مهندس مكتب فني" },
+    org: darAlKahrabaa,
+    start: "2025-10",
+    commitment: { en: "Part time", ar: "دوام جزئي" },
+    points: [
+      {
+        en: "Working remotely on technical documentation and electrical designs.",
+        ar: "العمل عن بُعد على المستندات الفنية والتصاميم الكهربائية.",
+      },
+    ],
+  },
+  {
     id: "training-deputy",
     title: { en: "Training deputy manager", ar: "نائب مدير التدريب" },
     org: darAlKahrabaa,
@@ -46,19 +59,6 @@ export const experience: Role[] = [
       {
         en: "Discussed individual projects with trainees across four branches, conducted oral assessments and evaluated technical understanding and overall performance.",
         ar: "مناقشة مشروعات المتدربين الفردية في أربعة أفرع، وإجراء التقييمات الشفهية، وتقييم الفهم الفني والأداء العام.",
-      },
-    ],
-  },
-  {
-    id: "technical-office",
-    title: { en: "Technical office engineer", ar: "مهندس مكتب فني" },
-    org: darAlKahrabaa,
-    start: "2025-10",
-    commitment: { en: "Part time", ar: "دوام جزئي" },
-    points: [
-      {
-        en: "Working remotely on technical documentation and electrical designs.",
-        ar: "العمل عن بُعد على المستندات الفنية والتصاميم الكهربائية.",
       },
     ],
   },

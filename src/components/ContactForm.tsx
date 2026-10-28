@@ -83,7 +83,7 @@ export function ContactForm() {
           <input {...common} type={props.type ?? "text"} maxLength={120} dir={props.type === "email" ? "ltr" : undefined} />
         )}
         {error && (
-          <p id={`${id}-error`} className="mt-1.5 text-sm text-[#B42318] dark:text-[#F97066]">
+          <p id={`${id}-error`} className="mt-1.5 text-sm text-[#e5484d]">
             {error}
           </p>
         )}
@@ -118,7 +118,7 @@ export function ContactForm() {
       </div>
 
       <div className="flex flex-wrap items-center gap-4">
-        <button type="submit" className="btn btn-solid" disabled={status === "sending"}>
+        <button type="submit" className="btn btn-solid" data-magnetic disabled={status === "sending"}>
           {status === "sending" ? t("contact.sending") : t("contact.send")}
         </button>
         <p role="status" className="text-sm text-ink-soft">
@@ -126,7 +126,7 @@ export function ContactForm() {
           {status === "failed" && (
             <>
               {" "}
-              <a href={`mailto:${profile.email}`} className="text-blue underline" dir="ltr">
+              <a href={`mailto:${profile.email}`} className="text-amber underline" dir="ltr">
                 {profile.email}
               </a>
             </>

@@ -2,7 +2,7 @@ import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-const ROUTES = ["/", "/projects", "/experience", "/credentials", "/tools", "/resources", "/contact"];
+const ROUTES = ["/", "/projects", "/experience", "/training", "/credentials", "/tools", "/resources", "/contact"];
 
 /** Content-Security-Policy used as a fallback when the host cannot set response headers. */
 function buildCsp(contactOrigin: string): string {
@@ -65,11 +65,11 @@ export default defineConfig(({ mode }) => {
   // Netlify exposes the site's primary URL as URL during builds, so the default needs no configuration.
   const siteUrl = (env.VITE_SITE_URL || process.env.URL || "https://ahmedabdelmonem.netlify.app").replace(/\/$/, "");
 
-  let contactOrigin = "";
+  let contactOrigin = "https://formspree.io";
   try {
     if (env.VITE_CONTACT_ENDPOINT) contactOrigin = new URL(env.VITE_CONTACT_ENDPOINT).origin;
   } catch {
-    contactOrigin = "";
+    /* keep the default */
   }
 
   return {

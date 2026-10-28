@@ -16,8 +16,8 @@ export default {
         earth: token("earth"),
       },
       fontFamily: {
-        sans: ['"IBM Plex Sans"', '"IBM Plex Sans Arabic"', "system-ui", "sans-serif"],
-        display: ['"IBM Plex Sans Condensed"', '"IBM Plex Sans Arabic"', "system-ui", "sans-serif"],
+        sans: ['"Readex Pro Variable"', '"Cairo Variable"', "system-ui", "sans-serif"],
+        display: ['"Bricolage Grotesque Variable"', '"Cairo Variable"', "system-ui", "sans-serif"],
       },
       maxWidth: { page: "72rem", prose: "62ch" },
     },

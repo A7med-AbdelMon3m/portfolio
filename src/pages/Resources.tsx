@@ -17,16 +17,16 @@ export default function Resources() {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group grid items-start gap-x-6 gap-y-1 py-5 md:grid-cols-[10rem_1fr_auto]"
+              className="row-link grid items-start gap-x-6 gap-y-1 py-6 ps-4 md:grid-cols-[10rem_1fr_auto]"
             >
               <span className="text-sm text-ink-soft md:pt-1.5">{l(item.kind)}</span>
               <span>
-                <span className="block font-display text-xl font-semibold group-hover:text-blue">{l(item.title)}</span>
+                <span className="block font-display text-xl font-bold md:text-2xl">{l(item.title)}</span>
                 <span className="text-ink-soft">
                   {t("resources.by")} {l(item.author)}
                 </span>
               </span>
-              <span className="hidden items-center gap-1 pt-1.5 text-sm text-blue md:flex">
+              <span className="hidden items-center gap-1 pt-1.5 text-sm text-amber md:flex">
                 {t("resources.open")}
                 <ArrowUpRight size={18} aria-hidden="true" className="rtl:-scale-x-100" />
               </span>

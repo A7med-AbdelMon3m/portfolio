@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useRef } from "react";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { ScrollFx } from "@/components/ScrollFx";
 import { Layout } from "@/components/Layout";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { I18nProvider } from "@/i18n";
@@ -9,6 +10,7 @@ import Home from "@/pages/Home";
 
 const Projects = lazy(() => import("@/pages/Projects"));
 const Experience = lazy(() => import("@/pages/Experience"));
+const Training = lazy(() => import("@/pages/Training"));
 const Credentials = lazy(() => import("@/pages/Credentials"));
 const Tools = lazy(() => import("@/pages/Tools"));
 const Resources = lazy(() => import("@/pages/Resources"));
@@ -44,12 +46,14 @@ export default function App() {
           <ThemeProvider>
             <BrowserRouter>
               <RouteEffects />
+              <ScrollFx />
               <Layout>
                 <Suspense fallback={null}>
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/projects" element={<Projects />} />
                     <Route path="/experience" element={<Experience />} />
+                    <Route path="/training" element={<Training />} />
                     <Route path="/credentials" element={<Credentials />} />
                     <Route path="/tools" element={<Tools />} />
                     <Route path="/resources" element={<Resources />} />

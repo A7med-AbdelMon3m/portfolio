@@ -10,6 +10,7 @@ export default function Projects() {
   const { t, l } = useI18n();
   const period = usePeriod();
   const [params, setParams] = useSearchParams();
+  const openParam = params.get("open");
   const raw = params.get("scope");
   const scope = isScopeId(raw) ? raw : null;
   const visible = scope ? projects.filter((project) => project.scopes.includes(scope)) : projects;
@@ -26,18 +27,22 @@ export default function Projects() {
       <Seo title={t("seo.projects.title")} description={t("seo.projects.desc")} />
       <PageHead title={t("projects.title")} intro={t("projects.intro")} />
 
-      <section id="register" className="scroll-mt-24 py-10">
-        <ProjectRegister projects={visible} filter={{ value: scope, onChange: setScope, all: projects }} />
+      <section id="register" className="scroll-mt-24 py-12">
+        <ProjectRegister
+          projects={visible}
+          initialOpenId={openParam}
+          filter={{ value: scope, onChange: setScope, all: projects }}
+        />
       </section>
 
-      <section className="border-t border-line py-10">
-        <h2 className="text-2xl font-bold md:text-3xl">{t("projects.visits")}</h2>
+      <section className="border-t border-line py-12">
+        <h2 data-lit className="lit-title text-3xl font-extrabold md:text-4xl">{t("projects.visits")}</h2>
         <p className="mt-2 text-ink-soft">{t("projects.visits.intro")}</p>
         <ul className="mt-6">
           {siteVisits.map((visit) => (
             <li
               key={visit.id}
-              className="grid gap-x-6 gap-y-1 border-b border-line py-4 md:grid-cols-[9.5rem_1fr]"
+              className="grid gap-x-6 gap-y-1 border-b border-line py-5 md:grid-cols-[9.5rem_1fr]"
             >
               <span className="text-sm tabular-nums text-ink-soft md:pt-1">{period(visit.date)}</span>
               <span>

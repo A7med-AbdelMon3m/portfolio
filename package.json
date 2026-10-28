@@ -12,9 +12,9 @@
     "typecheck": "tsc -p tsconfig.app.json --noEmit"
   },
   "dependencies": {
-    "@fontsource/ibm-plex-sans": "^5.1.0",
-    "@fontsource/ibm-plex-sans-arabic": "^5.1.0",
-    "@fontsource/ibm-plex-sans-condensed": "^5.1.0",
+    "@fontsource-variable/bricolage-grotesque": "^5.1.0",
+    "@fontsource-variable/cairo": "^5.1.0",
+    "@fontsource-variable/readex-pro": "^5.1.0",
     "@radix-ui/react-dialog": "^1.1.2",
     "clsx": "^2.1.1",
     "lucide-react": "^0.462.0",

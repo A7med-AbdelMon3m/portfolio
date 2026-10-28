@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <div className="wrap py-24">
       <Seo title={t("seo.notfound.title")} description={t("notfound.text")} />
-      <p className="font-display text-7xl font-bold tabular-nums text-ink-soft" dir="ltr">
+      <p className="font-display text-7xl font-bold tabular-nums text-amber" dir="ltr">
         404
       </p>
       <h1 className="mt-4 text-4xl font-bold">{t("notfound.title")}</h1>

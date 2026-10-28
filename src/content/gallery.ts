@@ -22,12 +22,12 @@ export const photos: Photo[] = [
   {
     id: "whiteboard",
     src: whiteboard,
-    caption: { en: "Explaining a design diagram in a training session", ar: "شرح مخطط تصميم أثناء جلسة تدريبية" },
+    caption: { en: "Discussing a trainee's project on the board, Round 23", ar: "مناقشة مشروع أحد المتدربين على السبورة، الدفعة 23" },
   },
   {
     id: "drawings",
     src: drawings,
-    caption: { en: "Going through a floor-plan drawing", ar: "مراجعة رسم مسقط أفقي" },
+    caption: { en: "Reviewing a trainee's drawings in a Round 23 discussion", ar: "مراجعة رسومات أحد المتدربين في مناقشات الدفعة 23" },
   },
   {
     id: "ceremony",

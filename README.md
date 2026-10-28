@@ -1,6 +1,10 @@
 # Ahmed AbdelMonem, portfolio
 
-Vite + React + TypeScript + Tailwind. English and Arabic (right-to-left), light and dark themes.
+Vite + React + TypeScript + Tailwind. English and Arabic (right-to-left), dark and light themes ("lights" switch).
+
+Interactive layer: a scroll-driven amber energy rail, animated counters, a services single-line diagram that lists the matching projects, project files that open as sheets, a self-drawing experience timeline, parallax photo reel with lightbox, a Ctrl/Cmd + K command palette, and two engineering tools. All motion switches off for visitors who prefer reduced motion. The scroll engine is `src/lib/scrollFx.ts` and is driven by data attributes.
+
+Fonts (self-hosted): Bricolage Grotesque (headings), Readex Pro (body), Cairo (Arabic headings).
 
 ## Run
 
@@ -14,7 +18,7 @@ npm run typecheck
 Copy `.env.example` to `.env` and set:
 
 - `VITE_SITE_URL`: optional. The public URL used for canonical links, Open Graph, sitemap.xml and robots.txt. On Netlify it is detected automatically; set it only when you add a custom domain.
-- `VITE_CONTACT_ENDPOINT`: your Formspree (or similar) endpoint. If empty, the contact form opens the visitor's mail app instead.
+- `VITE_CONTACT_ENDPOINT`: optional. The contact form posts to the Formspree form set in `src/config/site.ts`; set this only to use a different endpoint.
 
 ## Where to edit content
 
@@ -27,7 +31,9 @@ Everything you would update lives in `src/content/`. Pages never contain copy.
 | `credentials.ts` | Education and certificates (add the images in `src/assets/certs`) |
 | `skills.ts` | Skill groups and software |
 | `resources.ts` | The Resources page |
-| `profile.ts` | Name, email, phone, links, CV path |
+| `profile.ts` | Name, email, phone, links, CV link |
+| `gallery.ts` | Photos and captions (home page and Training page) |
+| `training.ts` | The training stages and the headline numbers |
 
 Every text has an `en` and an `ar` version. UI strings are in `src/i18n/en.ts` and `src/i18n/ar.ts`; the compiler flags any key missing from the Arabic file.
 

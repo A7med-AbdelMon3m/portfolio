@@ -2,6 +2,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { PageHead } from "@/components/PageHead";
 import { Seo } from "@/components/Seo";
 import { profile } from "@/content/profile";
+import { CopyEmail } from "@/components/CopyEmail";
 import { useI18n } from "@/i18n";
 
 export default function Contact() {
@@ -12,11 +13,11 @@ export default function Contact() {
       <PageHead title={t("contact.title")} intro={t("contact.intro")} />
       <div className="grid gap-12 py-10 lg:grid-cols-[1.2fr_0.8fr]">
         <ContactForm />
-        <dl className="space-y-6 self-start border border-line bg-sheet-raised p-6">
+        <dl className="frame space-y-6 self-start border border-line bg-sheet-raised p-7">
           <div>
             <dt className="text-sm text-ink-soft">{t("contact.email")}</dt>
             <dd>
-              <a href={`mailto:${profile.email}`} className="break-all hover:text-blue" dir="ltr">
+              <a href={`mailto:${profile.email}`} className="break-all hover:text-amber" dir="ltr">
                 {profile.email}
               </a>
             </dd>
@@ -24,7 +25,7 @@ export default function Contact() {
           <div>
             <dt className="text-sm text-ink-soft">{t("contact.phone")}</dt>
             <dd>
-              <a href={`tel:${profile.phone}`} className="hover:text-blue" dir="ltr">
+              <a href={`tel:${profile.phone}`} className="hover:text-amber" dir="ltr">
                 {profile.phoneDisplay}
               </a>
             </dd>
@@ -41,11 +42,14 @@ export default function Contact() {
             <dt className="text-sm text-ink-soft">{t("contact.profiles")}</dt>
             <dd className="flex flex-wrap gap-x-5 gap-y-1">
               {Object.values(profile.links).map((link) => (
-                <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-blue">
+                <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" className="hover:text-amber">
                   {link.label}
                 </a>
               ))}
             </dd>
+          </div>
+          <div>
+            <CopyEmail className="btn btn-line w-full" />
           </div>
         </dl>
       </div>

@@ -1,5 +1,6 @@
 import { useId, useMemo, useState } from "react";
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
+import { NumberField, Segmented } from "@/components/fields";
 import { useI18n } from "@/i18n";
 import type { Key } from "@/i18n/en";
 import {
@@ -10,80 +11,6 @@ import {
   type Material,
   type Phases,
 } from "@/lib/voltageDrop";
-
-function Segmented<T extends string>({
-  legend,
-  name,
-  value,
-  onChange,
-  options,
-}: {
-  legend: string;
-  name: string;
-  value: T;
-  onChange: (value: T) => void;
-  options: ReadonlyArray<{ value: T; label: string }>;
-}) {
-  return (
-    <fieldset>
-      <legend className="mb-1.5 text-sm text-ink-soft">{legend}</legend>
-      <div className="grid auto-cols-fr grid-flow-col border border-line">
-        {options.map((option) => (
-          <label key={option.value} className="relative">
-            <input
-              type="radio"
-              name={name}
-              value={option.value}
-              checked={value === option.value}
-              onChange={() => onChange(option.value)}
-              className="peer sr-only"
-            />
-            <span className="block cursor-pointer px-3 py-2.5 text-center text-[0.95rem] peer-checked:bg-ink peer-checked:text-sheet peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-blue">
-              {option.label}
-            </span>
-          </label>
-        ))}
-      </div>
-    </fieldset>
-  );
-}
-
-function NumberField({
-  label,
-  value,
-  onChange,
-  step,
-  min,
-  max,
-}: {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  step?: string;
-  min?: string;
-  max?: string;
-}) {
-  const id = useId();
-  return (
-    <div>
-      <label htmlFor={id} className="mb-1.5 block text-sm text-ink-soft">
-        {label}
-      </label>
-      <input
-        id={id}
-        type="number"
-        inputMode="decimal"
-        className="field tabular-nums"
-        value={value}
-        step={step ?? "any"}
-        min={min}
-        max={max}
-        dir="ltr"
-        onChange={(event) => onChange(event.target.value)}
-      />
-    </div>
-  );
-}
 
 export function VoltageDrop() {
   const { t } = useI18n();
@@ -164,7 +91,7 @@ export function VoltageDrop() {
         <NumberField label={t("vd.pf")} value={pf} onChange={setPf} step="0.01" min="0.1" max="1" />
       </div>
 
-      <div className="border border-ink/60 bg-sheet-raised p-5" aria-live="polite">
+      <div className="border border-amber/60 bg-sheet-raised p-6" aria-live="polite">
         <h3 className="text-sm font-normal text-ink-soft">{t("vd.result")}</h3>
         {result ? (
           <>
@@ -179,7 +106,7 @@ export function VoltageDrop() {
             </p>
             <p
               className={`mt-4 flex items-center gap-2 font-medium ${
-                result.ok ? "text-earth" : "text-[#B42318] dark:text-[#F97066]"
+                result.ok ? "text-earth" : "text-[#e5484d]"
               }`}
             >
               <Status size={20} aria-hidden="true" />

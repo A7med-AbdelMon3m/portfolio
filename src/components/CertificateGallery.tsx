@@ -26,7 +26,7 @@ export function CertificateGallery() {
                 height={450}
                 loading="lazy"
                 decoding="async"
-                className="aspect-[1.42/1] w-full border border-line object-cover transition-colors group-hover:border-ink"
+                className="aspect-[1.42/1] w-full border border-line object-cover transition-colors group-hover:border-amber"
               />
               <span className="mt-3 block font-display text-lg font-semibold">{l(cert.title)}</span>
               <span className="block text-sm text-ink-soft">{l(cert.issuer)}</span>
@@ -37,11 +37,11 @@ export function CertificateGallery() {
 
       <Dialog.Root open={selected !== null} onOpenChange={(open) => !open && setSelected(null)}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-ink/70" />
+          <Dialog.Overlay className="overlay-in fixed inset-0 z-50 bg-[#0a0f14]/75" />
           {selected && (
             <Dialog.Content
               aria-describedby="cert-description"
-              className="fixed start-1/2 top-1/2 z-50 max-h-[92vh] w-[min(94vw,62rem)] -translate-y-1/2 overflow-y-auto border border-line bg-sheet p-4 ltr:-translate-x-1/2 rtl:translate-x-1/2 md:p-6"
+              className="dialog-in fixed start-1/2 top-1/2 z-50 max-h-[92vh] w-[min(94vw,62rem)] -translate-y-1/2 overflow-y-auto border border-line bg-sheet p-4 ltr:-translate-x-1/2 rtl:translate-x-1/2 md:p-6"
             >
               <div className="mb-4 flex items-start justify-between gap-4">
                 <div>

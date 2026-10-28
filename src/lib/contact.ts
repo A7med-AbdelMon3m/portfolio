@@ -39,7 +39,7 @@ export async function sendContact(data: ContactInput): Promise<SendOutcome> {
     const response = await fetch(CONTACT_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, _subject: `Portfolio: ${data.subject}` }),
       signal: controller.signal,
       referrerPolicy: "no-referrer",
       credentials: "omit",
