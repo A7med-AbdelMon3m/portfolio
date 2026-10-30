@@ -2,7 +2,7 @@
 
 Vite + React + TypeScript + Tailwind. English and Arabic (right-to-left), dark and light themes ("lights" switch).
 
-Interactive layer: a scroll-driven amber energy rail, animated counters, a services single-line diagram that lists the matching projects, project files that open as sheets, a self-drawing experience timeline, parallax photo reel with lightbox, a Ctrl/Cmd + K command palette, and two engineering tools. All motion switches off for visitors who prefer reduced motion. The scroll engine is `src/lib/scrollFx.ts` and is driven by data attributes.
+Interactive layer: a scroll-driven amber energy rail, animated counters, a services single-line diagram that lists the matching projects, project files that open as sheets, a self-drawing experience timeline, parallax photo reel with lightbox, a Ctrl/Cmd + K command palette, an embedded electrical assistant, and a cable and breaker sizing tool for 380/220 V systems. All motion switches off for visitors who prefer reduced motion. The scroll engine is `src/lib/scrollFx.ts` and is driven by data attributes.
 
 Fonts (self-hosted): Bricolage Grotesque (headings), Readex Pro (body), Cairo (Arabic headings).
 

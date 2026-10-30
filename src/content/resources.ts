@@ -49,6 +49,6 @@ export const resources: Resource[] = [
     title: { en: "Electrical Know How: tutorials, calculations and courses", ar: "Electrical Know How: شروحات وحسابات وكورسات" },
     author: { en: "Eng. Ali Hassan Elashmawy", ar: "م. علي حسن الأشموي" },
     kind: { en: "Website", ar: "موقع إلكتروني" },
-    url: "https://www.electrical-knowhow.com/",
+    url: "http://www.electrical-knowhow.com/",
   },
 ];

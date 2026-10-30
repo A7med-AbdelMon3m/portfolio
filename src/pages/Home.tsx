@@ -79,13 +79,6 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className="absolute -bottom-7 start-3 max-w-[17rem] bg-amber p-4 text-[#0a0f14] shadow-xl sm:-start-6" {...reveal(900)}>
-              <p className="flex items-center gap-2 font-display text-lg font-bold">
-                <span className="live-dot" aria-hidden="true" />
-                {t("hero.badge.title")}
-              </p>
-              <p className="mt-1 text-sm leading-snug">{t("hero.badge.text")}</p>
-            </div>
           </div>
         </div>
       </section>
